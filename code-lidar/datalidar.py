@@ -1,4 +1,4 @@
-import sys, numpy as np, os, time, math, mathplotlib
+import sys, numpy as np, os, time, math,
 from rplidar import RPLidar
 
 
