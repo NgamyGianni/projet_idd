@@ -1,4 +1,4 @@
-import sys, numpy as np, os, time, math,
+import sys, numpy as np, csv, math, matplotlib.pyplot as plt
 from rplidar import RPLidar
 
 
@@ -32,6 +32,7 @@ def run(fileNames):
     #np.save(path, np.array(data))
     create(fileNames[0], data)
     create(fileNames[1], dataPos)
+    gui(fileNames[1])
 
 def create(fileName, data):
     file = open(fileName, 'w')
@@ -41,8 +42,19 @@ def create(fileName, data):
         file.write("\n")
     file.close()
 
-
+def gui(filename):
+    x = []
+    y = []
+    with open(filename, newline='') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        for row in spamreader:
+            x.append(float( (row[0].strip()) ))
+            y.append(float((row[1].strip())))
+    print(x)
+    print(y)
+    plt.plot(x, y,".")
+    plt.show()
 if __name__ == '__main__':
     fileName1 = "data-lidar.csv"
     fileName2 = "data-position.csv"
-    run([fileName1,fileName2])
+    run([fileName1, fileName2])
