@@ -23,12 +23,10 @@ def run(fileNames):
                 break
             #create(fileName, data)
             #print(data)
-
     except KeyboardInterrupt:
         print('Stoping.')
     lidar.stop()
     lidar.disconnect()
-    print(data)
     #np.save(path, np.array(data))
     create(fileNames[0], data)
     create(fileNames[1], dataPos)
