@@ -162,8 +162,6 @@ def main(print_maze = True):
     
     return path
 
-path = main()
-
 def tradMove(p1, p2):
     x1, y1 = p1
     x2, y2 = p2
@@ -182,6 +180,24 @@ def tradMove(p1, p2):
         else:
             return "s"
 
-commands = [tradMove(path[i], path[i+1]) for i in range(len(path)-1)]
+path = main()
 
-print(commands)
+def commands(points):
+    return [tradMove(points[i], points[i+1]) for i in range(len(points)-1)]
+
+print(commands(path))
+
+def affiche_matrix(matrix, path):
+    for step in path:
+            matrix[step[0]][step[1]] = 2
+
+    for row in matrix:
+        line = []
+        for col in row:
+            if col == 1:
+                line.append("\u2588")
+            elif col == 0:
+                line.append(" ")
+            elif col == 2:
+                line.append(".")
+        print("".join(line))

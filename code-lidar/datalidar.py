@@ -37,20 +37,21 @@ def run(fileNames):
     #np.save(path, np.array(data))
     create(fileNames[0], data)
     create(fileNames[1], dataPos)
-    gui(fileNames[1])
+    #gui(fileNames[1])
 
 
 def create(fileName, data):
     file = open(fileName, 'w')
     print("I save my data ")
-    for elm in data:
+    for i, elm in enumerate(data):
         #if len(voisins(data, elm[0], elm[1], 10)) > 10 :
         file.write(str(elm[0])+" , "+str(elm[1]))
-        file.write("\n")
+        if i < len(data) - 1:
+            file.write("\n")
     file.close()
 
 
-def gui(filename):
+"""def gui(filename):
     x = []
     y = []
 
@@ -91,7 +92,7 @@ def gui(filename):
     #matrix.reverse()
     return (x,y,matrix)
    # plt.plot(x, y,".")
-   # plt.show()
+   # plt.show()"""
 
 def distance(p1, p2):
     x1, y1 = p1
