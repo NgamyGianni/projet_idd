@@ -16,7 +16,7 @@ def read_file(filename):
 
 def cell_size(long_rb, larg_rb, gap):  # long and larg in mm
     #return lenght, width
-    return long_rb+2.*gap, larg_rb+2.*gap 
+    return long_rb + gap, larg_rb + gap 
 
 # Initialize the area subdivision
 # sub_arr takes two values:  0 (i.e no obstacle) or  1 (i.e obstacle)
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     # robot size adn gap from robot to cell
     long_rb = 400. # 40 cm
     larg_rb = 400. # 40 cm
-    gap = 10. # 10 cm
+    gap = 4. # 10 cm
 
     # width of the table
     larg_table = 2000  # 2 m
