@@ -159,3 +159,5 @@ def main(print_maze = True):
                     line.append(".")
             print("".join(line))
     print(path)
+
+main(True)

@@ -4,8 +4,8 @@ from turtle import undo
 from rplidar import RPLidar
 import a_star
 
-PORT_NAME = 'COM5'
-# PORT_NAME = '/dev/tty.usbserial-0001'
+#PORT_NAME = 'COM5'
+PORT_NAME = '/dev/tty.usbserial-0001'
 
 def run(fileNames):
     '''Main function'''
@@ -36,20 +36,21 @@ def run(fileNames):
     #np.save(path, np.array(data))
     create(fileNames[0], data)
     create(fileNames[1], dataPos)
-    gui(fileNames[1])
+    #gui(fileNames[1])
 
 
 def create(fileName, data):
     file = open(fileName, 'w')
     print("I save my data ")
-    for elm in data:
+    for i, elm in enumerate(data):
         #if len(voisins(data, elm[0], elm[1], 10)) > 10 :
         file.write(str(elm[0])+" , "+str(elm[1]))
-        file.write("\n")
+        if i < len(data) - 1:
+            file.write("\n")
     file.close()
 
 
-def gui(filename):
+"""def gui(filename):
     x = []
     y = []
 
@@ -90,7 +91,7 @@ def gui(filename):
     #matrix.reverse()
     return (x,y,matrix)
    # plt.plot(x, y,".")
-   # plt.show()
+   # plt.show()"""
 
 def distance(p1, p2):
     x1, y1 = p1
@@ -105,16 +106,17 @@ def voisins(points, x, y, seuil):
 if __name__ == '__main__':
     fileName1 = "data-lidar.csv"
     fileName2 = "data-position.csv"
-    #run([fileName1, fileName2])
-    gui(fileName2)
-    x,y,matrix = gui(fileName2)
-    for m in matrix:
-        print(m)
-    print(len(matrix))
 
-    start = (0
-             , 0)
-    end = (10, 4)
+    run([fileName1, fileName2])
+    # gui(fileName2)
+    # x,y,matrix = gui(fileName2)
+    # for m in matrix:
+    #     print(m)
+    # print(len(matrix))
+
+    # start = (0
+    #          , 0)
+    # end = (10, 4)
 """
     path = a_star.astar(matrix, start, end)
     for step in path:
@@ -130,10 +132,10 @@ if __name__ == '__main__':
                 line.append(".")
         print("".join(line))
         """
-plt.plot(x, y,".")
+#plt.plot(x, y,".")
 """unzipped_list = [[i for i, j in path],
                  [j for i, j in path]]
 print(len(unzipped_list[0]),len(unzipped_list[1]))
 plt.plot(unzipped_list[0],unzipped_list[1])
 """
-plt.show()
+#plt.show()
