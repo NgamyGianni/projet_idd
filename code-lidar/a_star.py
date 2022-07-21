@@ -15,7 +15,8 @@ class Node:
         return self.position == other.position
 
     def __repr__(self):
-        return f"{self.position} - g: {self.g} h: {self.h} f: {self.f}"
+        #return f"{self.position} - g: {self.g} h: {self.h} f: {self.f}"
+        pass
 
     # defining less than for purposes of heap queue
     def __lt__(self, other):
@@ -139,8 +140,8 @@ def main(print_maze = True):
             [0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-    start = (5, 5)
-    end = (5, 10)
+    start = (4, 0)
+    end = (4, 9)
 
     path = astar(maze, start, end)
 
@@ -158,4 +159,29 @@ def main(print_maze = True):
                 elif col == 2:
                     line.append(".")
             print("".join(line))
-    print(path)
+    
+    return path
+
+path = main()
+
+def tradMove(p1, p2):
+    x1, y1 = p1
+    x2, y2 = p2
+    
+    dx = x2 - x1
+    dy = y2 - y1
+    
+    if dx != 0:
+        if dx == 1:
+            return "d"
+        else:
+            return "q"
+    else:
+        if dy == 1:
+            return "z"
+        else:
+            return "s"
+
+commands = [tradMove(path[i], path[i+1]) for i in range(len(path)-1)]
+
+print(commands)

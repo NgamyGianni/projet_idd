@@ -1,11 +1,12 @@
-import sys, numpy as np, csv, math, matplotlib.pyplot as plt
-from turtle import undo
+import numpy as np, csv, math#, matplotlib.pyplot as plt
+#from turtle import undo
 
 from rplidar import RPLidar
 import a_star
 
-PORT_NAME = 'COM5'
+# PORT_NAME = 'COM5'
 # PORT_NAME = '/dev/tty.usbserial-0001'
+PORT_NAME = '/dev/ttyACM0'
 
 def run(fileNames):
     '''Main function'''
@@ -105,7 +106,8 @@ def voisins(points, x, y, seuil):
 if __name__ == '__main__':
     fileName1 = "data-lidar.csv"
     fileName2 = "data-position.csv"
-    #run([fileName1, fileName2])
+    run([fileName1, fileName2])
+    """
     gui(fileName2)
     x,y,matrix = gui(fileName2)
     for m in matrix:
@@ -115,7 +117,7 @@ if __name__ == '__main__':
     start = (0
              , 0)
     end = (10, 4)
-"""
+
     path = a_star.astar(matrix, start, end)
     for step in path:
         matrix[step[0]][step[1]] = 2
@@ -129,11 +131,11 @@ if __name__ == '__main__':
             elif col == 2:
                 line.append(".")
         print("".join(line))
-        """
+        
 plt.plot(x, y,".")
-"""unzipped_list = [[i for i, j in path],
+unzipped_list = [[i for i, j in path],
                  [j for i, j in path]]
 print(len(unzipped_list[0]),len(unzipped_list[1]))
 plt.plot(unzipped_list[0],unzipped_list[1])
-"""
-plt.show()
+
+plt.show()"""

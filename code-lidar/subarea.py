@@ -10,7 +10,7 @@ def read_file(filename):
     points = []
     val = []
     for elt in data:
-        val = re.split(";", elt)
+        val = re.split(",", elt)
         ###print(val)
         points.append([float(val[0]), float(val[1])])
     file.close()
@@ -86,7 +86,8 @@ def update_matrix_subdivision(filename,width, height, index_rb, matrix):
         column = index_rb[1] + ind_obs[1]
         # print("obs local" + str(ind_obs))
         # print("row " + str(row) + " "+"column " + str(column))
-        matrix[row][column] = 1
+        if row < np.shape(matrix)[0] and column < np.shape(matrix)[1]:
+            matrix[row][column] = 1
 
 
 if __name__ == "__main__":
