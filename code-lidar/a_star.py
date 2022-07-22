@@ -147,7 +147,7 @@ def main(print_maze = True):
 
     if print_maze:
         for step in path:
-            maze[step[0]][step[1]] = 2
+            maze[step[0]][step[1]] = 0
 
         for row in maze:
             line = []
@@ -189,7 +189,7 @@ def commands(points):
 
 def affiche_matrix(matrix, path):
     for step in path:
-            matrix[step[0]][step[1]] = 2
+            matrix[step[0]][step[1]] = 1
 
     for row in matrix:
         line = []

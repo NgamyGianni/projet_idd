@@ -27,12 +27,13 @@ if __name__ == "__main__":
     # Initiaalize the area subdivision
     width, height, matrix = subarea.init_matrix_subdivision(
         long_rb, larg_rb, gap, larg_table, point_arr)
-    
+    print("Premiere matrice")
+    print(matrix)
     current = index_rb
 
     while current != point_arr :
         
-        datalidar.run([filename1, filename2])
+        
         
         subarea.update_matrix_subdivision(filename2, width, height, index_rb, matrix)
         
@@ -40,20 +41,21 @@ if __name__ == "__main__":
         
         commands = a_star.commands(path)
             
-        a_star.affiche_matrix(matrix, path)
+        #a_star.affiche_matrix(matrix, path)
         
         ser = serial.Serial('/dev/ttyACM0')
 
         if commands[0] == "z" or commands[0] == 's':
-            for i in range(10):
-                time.sleep(0.2)
+            for i in range(100):
+                time.sleep(0.01)
                 ser.write(commands[0].encode())
         else:
-            for i in range(10):
-                time.sleep(0.2)
+            for i in range(100):
+                time.sleep(0.01)
                 ser.write(commands[0].encode())
         
         current = path[1]
+        datalidar.run([filename1, filename2])
         
         
         

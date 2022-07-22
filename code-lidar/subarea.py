@@ -66,6 +66,8 @@ def update_matrix_subdivision(filename, width, height, index_rb, matrix):
         if row < np.shape(matrix)[0] and column < np.shape(matrix)[1] :
             #print("row " + str(row) + " "+ str(column) )
             matrix[row][column] = 1
+    print("nouvelle matrice")
+    print(np.array(matrix))
 
 
 if __name__ == "__main__":
