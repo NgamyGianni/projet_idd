@@ -8,9 +8,10 @@ def read_file(filename):
     data = re.split("\n", file.read())
     points = []
     val = []
-    for elt in data:
+    for i, elt in enumerate(data):
         val = re.split(",", elt)
         points.append([float(val[0]), float(val[1])])
+
     file.close()
     return points
 
@@ -58,10 +59,12 @@ def min_indices_column(indices):
 def update_matrix_subdivision(filename, width, height, index_rb, matrix):
     points = read_file(filename)
     indices_obs = abscisse_obstacles(points, width, height)
+    print(np.shape(matrix))
     for ind_obs in indices_obs:
         row = index_rb[0] - ind_obs[0]
         column = index_rb[1] + ind_obs[1]
-        if row < np.shape(matrix)[0] and column < np.shape(matrix)[1]:
+        if row < np.shape(matrix)[0] and column < np.shape(matrix)[1] :
+            #print("row " + str(row) + " "+ str(column) )
             matrix[row][column] = 1
 
 
@@ -92,6 +95,7 @@ if __name__ == "__main__":
     cell_length, cell_width = cell_size(long_rb, larg_rb, gap)
     print(cell_length, cell_width )
     print(np.shape(matrix))
+    print(matrix)
     
     
     

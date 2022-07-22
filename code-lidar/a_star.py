@@ -180,12 +180,12 @@ def tradMove(p1, p2):
         else:
             return "s"
 
-path = main()
+# path = main()
 
 def commands(points):
     return [tradMove(points[i], points[i+1]) for i in range(len(points)-1)]
 
-print(commands(path))
+#print(commands(path))
 
 def affiche_matrix(matrix, path):
     for step in path:

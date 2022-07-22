@@ -1,4 +1,4 @@
-import a_star, subarea, time, datalidar
+import a_star, subarea, time, datalidar, serial
 
 """ser = serial.Serial('/dev/ttyACM0')
 
@@ -45,11 +45,11 @@ if __name__ == "__main__":
         ser = serial.Serial('/dev/ttyACM0')
 
         if commands[0] == "z" or commands[0] == 's':
-            for i in range(2):
+            for i in range(10):
                 time.sleep(0.2)
                 ser.write(commands[0].encode())
         else:
-            for i in range(3):
+            for i in range(10):
                 time.sleep(0.2)
                 ser.write(commands[0].encode())
         

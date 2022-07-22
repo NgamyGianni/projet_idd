@@ -3,14 +3,18 @@ import numpy as np, csv, math#, matplotlib.pyplot as plt
 
 from rplidar import RPLidar
 import a_star
+import time
 
 # PORT_NAME = 'COM5'
-# PORT_NAME = '/dev/tty.usbserial-0001'
-PORT_NAME = '/dev/ttyACM0'
+#PORT_NAME = '/dev/tty.usbserial-0001'
+#PORT_NAME = '/dev/ttyACM0'
+PORT_NAME = '/dev/ttyUSB0'
 
 def run(fileNames):
     '''Main function'''
     lidar = RPLidar(PORT_NAME)
+    # waiting time to connect to the lidar
+    time.sleep(2)
     data = []
     dataPos = []
     try:
@@ -24,7 +28,7 @@ def run(fileNames):
                 if(scan[-1]<1000) and (x>=0):
                     data.append([scan[-2],scan[-1]])
                     dataPos.append([x,y])
-            if ( len(data) > 1000 ):
+            if ( len(data) > 600 ):
                 break
 
 
