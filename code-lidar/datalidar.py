@@ -25,7 +25,7 @@ def run(fileNames):
                 teta = math.radians(scan[-2])
                 x = scan[-1] * math.cos(teta)
                 y = scan[-1] * math.sin(teta)
-                if(scan[-1]<1000) and (x>=0):
+                if(scan[-1]<=1000) and (x>=0):
                     data.append([scan[-2],scan[-1]])
                     dataPos.append([x,y])
             if ( len(data) > 600 ):

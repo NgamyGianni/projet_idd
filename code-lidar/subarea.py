@@ -17,34 +17,44 @@ def read_file(filename):
 
 def cell_size(long_rb, larg_rb, gap):  # long and larg in mm
     #return lenght, width
-    return long_rb + gap, larg_rb + gap 
+    #return (long_rb + gap, larg_rb + gap)
+    return (long_rb/2 + gap, larg_rb/2 + gap)
+
+
+def size_table_to_matrix(length_tb, width_tb, size_of_cell):
+
+    # width_tb = largeur de la table
+    nb_rows = int(width_tb/size_of_cell[1])  
+
+    # length_tb = longueur de la table
+    nb_columns = int(length_tb/size_of_cell[0]) 
+
+    
+    return (nb_rows, nb_columns)
+
+
 
 # Initialize the area subdivision
 # sub_arr takes two values:  0 (i.e no obstacle) or  1 (i.e obstacle)
-def init_matrix_subdivision(long_rb, larg_rb, gap, larg_table, point_arr):
-    long, larg = cell_size(long_rb, larg_rb, gap)
-    long_route = point_arr[0] + long
-
-    # row and column
-    nbre_ligne = int(larg_table/larg)
-    nbre_colonne = int(long_route/long)
-
-    # matrix of subdivision area
-    sub_area = list(np.zeros((nbre_ligne, nbre_colonne)))
-    return long, larg, sub_area
+def init_matrix_subdivision(matrix_shape):
+    return list(np.zeros(matrix_shape))
+    
 
 
-def point_to_indices(point, width, height):
+def point_to_indices(point, size_of_cell):
+    width = size_of_cell[0]
+    height = size_of_cell[1]
     #height and width resp (row and column)
     if point[1] >= 0:
         return [int((point[1] + height/2.)/height), int((point[0] + width/2.)/width)]
     else:
         return [int((point[1] - height/2.)/height), int((point[0] + width/2.)/width)]
 
-def abscisse_obstacles(points, width, height):
+
+def abscisse_obstacles(points, size_of_cell):
     indices_obs = []
     for point in points:
-        indices_obs.append(point_to_indices(point, width, height))
+        indices_obs.append(point_to_indices(point, size_of_cell))
     return indices_obs
 
 def min_indices_column(indices):
@@ -56,16 +66,19 @@ def min_indices_column(indices):
     return indice_column
 
 
-def update_matrix_subdivision(filename, width, height, index_rb, matrix):
+def update_matrix_subdivision(filename, size_of_cell, index_rb, matrix):
     points = read_file(filename)
-    indices_obs = abscisse_obstacles(points, width, height)
+    indices_obs = abscisse_obstacles(points, size_of_cell)
+
     print(np.shape(matrix))
     for ind_obs in indices_obs:
         row = index_rb[0] - ind_obs[0]
         column = index_rb[1] + ind_obs[1]
-        if row < np.shape(matrix)[0] and column < np.shape(matrix)[1] :
+        if -1< row < np.shape(matrix)[0] and -1< column < np.shape(matrix)[1] :
             #print("row " + str(row) + " "+ str(column) )
             matrix[row][column] = 1
+        # else:
+        #     mat
     print("nouvelle matrice")
     print(np.array(matrix))
 
@@ -76,28 +89,35 @@ if __name__ == "__main__":
     larg_rb = 400. # 40 cm
     gap = 4. # 10 cm
 
+    # length of the table
+    length_tb = 3000
+
     # width of the table
-    larg_table = 2000  # 2 m
+    width_tb = 2000  # 2 m
 
-    # coordinaate of the aim point
-    # lenght table 3m
-    point_arr = [3000, 5] 
+    # cell_size of the area
+    size_of_cell = cell_size(long_rb, larg_rb, gap)
 
-    # index p the source point
-    ind_rb_i = int(larg_table / ( 2. * (larg_rb + 2. * gap) ) )
-    index_rb = [ind_rb_i,0]
+    # matrix shape
+    matrix_shape = size_table_to_matrix(length_tb, width_tb, size_of_cell)
+
+    # source point
+    ind_dep = int( (matrix_shape[0] - 1)/2 )
+    point_dep = (ind_dep, 0)
+
+    # target point
+    point_arr = (ind_dep, matrix_shape[1] - 1)
 
     # All obstacle points from the lidar
     filename = "data-position.csv"
 
-    width, height, matrix = init_matrix_subdivision(
-        long_rb, larg_rb, gap, larg_table, point_arr)
+    matrix = init_matrix_subdivision(matrix_shape)
 
-    update_matrix_subdivision(filename, width, height, index_rb, matrix)
-    cell_length, cell_width = cell_size(long_rb, larg_rb, gap)
-    print(cell_length, cell_width )
-    print(np.shape(matrix))
-    print(matrix)
+    update_matrix_subdivision(filename, size_of_cell, point_dep, matrix)
+    # cell_length, cell_width = cell_size(long_rb, larg_rb, gap)
+    # print(cell_length, cell_width )
+    # print(np.shape(matrix))
+    # print(matrix)
     
     
     

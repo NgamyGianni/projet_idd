@@ -183,7 +183,8 @@ def tradMove(p1, p2):
 # path = main()
 
 def commands(points):
-    return [tradMove(points[i], points[i+1]) for i in range(len(points)-1)]
+    if points is not None:
+        return [tradMove(points[i], points[i+1]) for i in range(len(points)-1)]
 
 #print(commands(path))
 

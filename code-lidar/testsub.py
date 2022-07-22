@@ -52,7 +52,7 @@ if __name__ == "__main__":
     current = point_dep
 
     while current != point_arr:
-
+        
         # Initialize the area subdivision
         matrix = subarea.init_matrix_subdivision(matrix_shape)
 
@@ -65,20 +65,20 @@ if __name__ == "__main__":
 
         #a_star.affiche_matrix(matrix, path)
 
-        ser = serial.Serial('/dev/ttyACM0')
+        # ser = serial.Serial('/dev/ttyACM0')
 
-        if commands[0] == "z" or commands[0] == 's':
-            for i in range(100):
-                time.sleep(0.01)
-                ser.write(commands[0].encode())
-        else:
-            for i in range(100):
-                time.sleep(0.01)
-                ser.write(commands[0].encode())
+        # if commands[0] == "z" or commands[0] == 's':
+        #     for i in range(100):
+        #         time.sleep(0.01)
+        #         ser.write(commands[0].encode())
+        # else:
+        #     for i in range(100):
+        #         time.sleep(0.01)
+        #         ser.write(commands[0].encode())
         if path is not None:
             current = path[1]
         datalidar.run([filename1, filename2])
-
+        
 
 # 3 coups lat
 # 2 coups avancer/reculer
