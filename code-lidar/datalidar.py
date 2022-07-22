@@ -14,7 +14,7 @@ def run(fileNames):
     '''Main function'''
     lidar = RPLidar(PORT_NAME)
     # waiting time to connect to the lidar
-    time.sleep(2)
+    # time.sleep(2)
     data = []
     dataPos = []
     try:
@@ -23,12 +23,12 @@ def run(fileNames):
         for scan in lidar.iter_measurments():
             if(scan[1]==15):
                 teta = math.radians(scan[-2])
-                x = scan[-1] * math.cos(teta)
+                x = - scan[-1] * math.cos(teta)
                 y = scan[-1] * math.sin(teta)
-                if(scan[-1]<=1000) and (x>=0):
+                if(scan[-1]<=500) and (x>=0):
                     data.append([scan[-2],scan[-1]])
                     dataPos.append([x,y])
-            if ( len(data) > 600 ):
+            if ( len(data) > 300 ):
                 break
 
 

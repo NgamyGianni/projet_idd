@@ -79,8 +79,9 @@ def update_matrix_subdivision(filename, size_of_cell, index_rb, matrix):
             matrix[row][column] = 1
         # else:
         #     mat
-    print("nouvelle matrice")
-    print(np.array(matrix))
+    # print("nouvelle matrice")
+    # print(np.shape(matrix))
+    # print(np.array(matrix))
 
 
 if __name__ == "__main__":
